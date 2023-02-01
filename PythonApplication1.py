@@ -1,21 +1,13 @@
 import redis
 
-myHostname = "redis562.redis.cache.windows.net"
-myPassword = "2XILJAdRE2dDjNDdtKZBx7NvEbdY73pRJAzCaMoav3I="
+redis_host = "demoredis924.redis.cache.windows.net"
+redis_password = "t5tTSWS1sRxoUbZHRkYjyLMrEUnhaixGuAzCaPJFbS0="
 
-r = redis.StrictRedis(host=myHostname, port=6380,
-                      password=myPassword, ssl=True)
+r = redis.StrictRedis(host=redis_host, password=redis_password, ssl=True)
 
-result = r.ping()
-print("Ping returned : " + str(result))
+# Store data in the cache
+r.set("example_key", "example_value")
 
-result = r.set("Message", "Hello!, The cache is working with Python!")
-print("SET Message returned : " + str(result))
-
-result = r.get("Message")
-print("GET Message returned : " + result.decode("utf-8"))
-
-result = r.client_list()
-print("CLIENT LIST returned : ")
-for c in result:
-    print("id : " + c['id'] + ", addr : " + c['addr'])
+# Retrieve data from the cache
+value = r.get("example_key")
+print(value)
